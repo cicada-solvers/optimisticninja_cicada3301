@@ -1,0 +1,40 @@
+image: node:latest
+
+stages:
+  - build
+  - archive_original_puzzles
+  - archive_steganalysis
+
+build:
+  stage: build
+  before_script:
+    - npm install -g markdownlint-cli markdown-link-check
+  script:
+    - ./ci/build.sh
+
+#archive_original_puzzles:
+#  stage: archive_original_puzzles
+#  script:
+#    # Create GZIP of originals
+#    - tar --exclude='originals.tar.gz' -T "ci/archive-originals.includes" --warning=no-file-changed -czvf originals.tar.gz .
+#  artifacts:
+#    paths:
+#      - originals.tar.gz
+#    expire_in: 1 week
+#  only:
+#    - tags
+#    - triggers
+#    - schedules
+
+#archive_steganalysis:
+#  stage: archive_steganalysis
+#  script:
+#    echo "No script"
+#  artifacts:
+#    paths:
+#      - 2014/liber_primus/analysis/stegoveritas-analysis.tar.bz2
+#    expire_in: 1 week
+#  only:
+#    - tags
+#    - triggers
+#    - schedules
